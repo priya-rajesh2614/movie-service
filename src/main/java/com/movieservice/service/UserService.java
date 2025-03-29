@@ -38,22 +38,18 @@ public class UserService {
 	
 
     public String registerUser(UserRegistrationDTO userRegistrationDTO) {
-        // Check if user already exists
         Optional<User> existingUser = userRepository.findByEmail(userRegistrationDTO.getEmail());
         if (existingUser.isPresent()) {
             return "Email already in use";
         }
 
-        // Encrypt the password
         String encryptedPassword = passwordEncoder.encode(userRegistrationDTO.getPassword());
 
-        // Create new user
         User newUser = new User();
         newUser.setEmail(userRegistrationDTO.getEmail());
         newUser.setPassword(encryptedPassword);
         newUser.setName(userRegistrationDTO.getName());
 
-        // Save the user to the database
         userRepository.save(newUser);
 
         return "User registered successfully";
