@@ -1,8 +1,13 @@
 package com.movieservice.service;
+
+
+import java.util.Optional;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.movieservice.dto.LoginRequestDto;
+import com.movieservice.dto.UserRegistrationDTO;
 import com.movieservice.entity.User;
 import com.movieservice.json.JwtUtil;
 import com.movieservice.repository.UserRepository;
@@ -23,13 +28,36 @@ public class UserService {
     
 
 	public String authenticate(LoginRequestDto loginRequest) {
-		 User user = userRepository.findByEmail(loginRequest.getEmail());
-	        if (user != null && loginRequest.getPassword().equals(user.getPassword())) {
-	            return jwtUtil.generateToken(user.getEmail());
+		 Optional<User> user = userRepository.findByEmail(loginRequest.getEmail());
+	        if (user.isPresent() && passwordEncoder.matches(loginRequest.getPassword(), user.get().getPassword())) {
+	            return jwtUtil.generateToken(user.get().getEmail());
 	        } else {
 	            throw new RuntimeException("Invalid email or password");
 	        }
 	}
+	
+
+    public String registerUser(UserRegistrationDTO userRegistrationDTO) {
+        // Check if user already exists
+        Optional<User> existingUser = userRepository.findByEmail(userRegistrationDTO.getEmail());
+        if (existingUser.isPresent()) {
+            return "Email already in use";
+        }
+
+        // Encrypt the password
+        String encryptedPassword = passwordEncoder.encode(userRegistrationDTO.getPassword());
+
+        // Create new user
+        User newUser = new User();
+        newUser.setEmail(userRegistrationDTO.getEmail());
+        newUser.setPassword(encryptedPassword);
+        newUser.setName(userRegistrationDTO.getName());
+
+        // Save the user to the database
+        userRepository.save(newUser);
+
+        return "User registered successfully";
+    }
 }
 
 
