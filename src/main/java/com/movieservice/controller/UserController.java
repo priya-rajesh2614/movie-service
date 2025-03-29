@@ -3,10 +3,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.movieservice.dto.LoginRequestDto;
+import com.movieservice.dto.UserRegistrationDTO;
 import com.movieservice.service.UserService;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("auth")
 public class UserController {
 
     private final UserService userService;
@@ -23,5 +24,12 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(401).body("Invalid email or password");
         }
+    }
+    
+
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO userRegistrationDTO) {
+        String response = userService.registerUser(userRegistrationDTO);
+        return ResponseEntity.ok(response);
     }
 }
