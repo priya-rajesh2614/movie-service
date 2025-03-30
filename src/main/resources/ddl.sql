@@ -19,3 +19,28 @@ CREATE TABLE movietick.movies (
     description TEXT,
     image_url VARCHAR(500)
 );
+
+CREATE TABLE movietick.theaters (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    location TEXT NOT NULL,
+    image_url VARCHAR(500) NOT NULL
+);
+
+
+CREATE TABLE movietick.movie_theater (
+    movie_id BIGINT NOT NULL,
+    theater_id BIGINT NOT NULL,
+    PRIMARY KEY (movie_id, theater_id),
+    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
+    FOREIGN KEY (theater_id) REFERENCES theaters(id) ON DELETE CASCADE
+);
+
+CREATE TABLE movietick.shows (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    movie_id BIGINT NOT NULL,
+    theater_id BIGINT NOT NULL,
+    show_time DATETIME NOT NULL,
+    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
+    FOREIGN KEY (theater_id) REFERENCES theaters(id) ON DELETE CASCADE
+);
