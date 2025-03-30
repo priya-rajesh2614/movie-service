@@ -18,3 +18,26 @@ INSERT INTO movietick.movies (title, genre, language, duration, description, ima
 ('Vinnaithaandi Varuvaayaa', 'Love/Family/Romance', 'Tamil', 150, 'A deep and emotional love story.', 'https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:l-image,i-discovery-catalog@@icons@@star-icon-202203010609.png,lx-24,ly-615,w-29,l-end:l-text,ie-OS8xMCAgMTIuM0sgVm90ZXM%3D,fs-29,co-FFFFFF,ly-612,lx-70,pa-8_0_0_0,l-end/et00038721-vwwelrpfzw-portrait.jpg'),
 
 ('Mufasa: The Lion King', 'Action/Comedy/Drama', 'English', 130, 'A grand story about the legendary Lion King.', 'https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:l-image,i-discovery-catalog@@icons@@star-icon-202203010609.png,lx-24,ly-615,w-29,l-end:l-text,ie-OC40LzEwICA3OC42SyBWb3Rlcw%3D%3D,fs-29,co-FFFFFF,ly-612,lx-70,pa-8_0_0_0,l-end/et00396541-hhkrpankjb-portrait.jpg');
+
+
+INSERT INTO movietick.theaters (name, location, image_url) VALUES
+('INOX THEATER', 'Chandra Metro Mall, Arcot Road, Chennai', 'https://www.alightindia.com/cdn/uploads/postimages/ORIGINAL/inox%20inox--49b37a.jpg'),
+('AGS THEATER', 'Alapakkam Main Road, Chennai', 'https://www.joonsquare.com/usermanage/image/business/ags-cinemas-chennai-1-34038/ags-cinemas-chennai-1-ags-cinemas-2.jpg'),
+('PVR Cinemas', 'Phoenix Market City, Chennai', 'https://media.assettype.com/freepressjournal/2022-09/47a59605-359e-4aa3-baa3-ff97daacf15f/Luxe_Audi_2__PVR_Maison.jpg'),
+('SPI Cinemas', 'Luxe, Velachery, Chennai', 'https://im.whatshot.in/img/2020/Jul/890563-wxhoacbhrp-1534318918-1594745884.jpeg');
+
+
+INSERT INTO movietick.movie_theater (movie_id, theater_id) VALUES
+(1, 1), (1, 2), 
+(2, 2), (2, 3), 
+(3, 1), (3, 4), 
+(4, 3), (4, 4), 
+(5, 1), (5, 2), (5, 3), (5, 4);
+
+
+INSERT INTO movietick.shows (movie_id, theater_id, show_time) VALUES
+(1, 1, '2025-04-10 10:00:00'),
+(1, 1, '2025-04-10 13:00:00'),
+(1, 2, '2025-04-10 15:30:00'),
+(2, 1, '2025-04-15 12:00:00'),
+(2, 2, '2025-04-15 18:30:00'); 
