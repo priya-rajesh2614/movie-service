@@ -1,5 +1,7 @@
 package com.movieservice.entity;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -27,8 +29,23 @@ public class Movie {
 
     @Column(name = "image_url", length = 500)
     private String imageUrl;
+    
+    @ManyToMany
+    @JoinTable(
+        name = "movie_theater",
+        joinColumns = @JoinColumn(name = "movie_id"),
+        inverseJoinColumns = @JoinColumn(name = "theater_id")
+    )
+    private Set<Theater> theaters;
 
-    public Long getId() { return id; }
+
+    public Set<Theater> getTheaters() {
+		return theaters;
+	}
+	public void setTheaters(Set<Theater> theaters) {
+		this.theaters = theaters;
+	}
+	public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public String getTitle() { return title; }
