@@ -28,6 +28,11 @@ public class MovieController {
 	    public Set<Theater> getTheatersByMovie(@PathVariable Long movieId) {
 	        return movieService.getTheatersByMovie(movieId);
 	    }
+	 
+	 @PostMapping
+	    public Movie addMovie(@RequestBody Movie movie) {
+	        return movieService.addMovie(movie);
+	    }
 
 
    
