@@ -41,3 +41,22 @@ INSERT INTO movietick.shows (movie_id, theater_id, show_time) VALUES
 (1, 2, '2025-04-10 15:30:00'),
 (2, 1, '2025-04-15 12:00:00'),
 (2, 2, '2025-04-15 18:30:00'); 
+
+INSERT INTO movietick.seats (show_id, seat_number, is_booked) VALUES
+(1, 'A1', FALSE), (1, 'A2', FALSE), (1, 'A3', FALSE), (1, 'A4', FALSE), (1, 'A5', FALSE),
+(1, 'B1', FALSE), (1, 'B2', FALSE), (1, 'B3', FALSE), (1, 'B4', FALSE), (1, 'B5', FALSE),
+(1, 'C1', FALSE), (1, 'C2', FALSE), (1, 'C3', FALSE), (1, 'C4', FALSE), (1, 'C5', FALSE),
+(1, 'D1', FALSE), (1, 'D2', FALSE), (1, 'D3', FALSE), (1, 'D4', FALSE), (1, 'D5', FALSE),
+(1, 'E1', FALSE), (1, 'E2', FALSE), (1, 'E3', FALSE), (1, 'E4', FALSE), (1, 'E5', FALSE);
+
+INSERT INTO movietick.payments (
+    transaction_id, user_email, payment_method, amount, status
+) VALUES (
+    'TXN1234567890', 'test@example.com', 'Credit Card', 450.00, 'Success'
+);
+
+INSERT INTO movietick.payment_seat_ids (payment_id, seat_id) VALUES 
+(1, 1),
+(1, 2),
+(1, 3);
+
