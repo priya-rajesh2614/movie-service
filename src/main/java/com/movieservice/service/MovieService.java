@@ -28,4 +28,7 @@ public class MovieService {
 	        return movie.getTheaters();
 	}
 
+	public Movie addMovie(Movie movie) {
+        return movieRepository.save(movie);
+    }
 }
