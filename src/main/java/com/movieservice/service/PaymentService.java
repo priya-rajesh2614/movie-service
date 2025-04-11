@@ -34,21 +34,17 @@ public class PaymentService {
     public ResponseEntity<Map<String, String>> processPayment(PaymentRequest paymentRequest) {
         Map<String, String> response = new HashMap<>();
 
-        // Fetch seats by IDs
         List<Seat> seats = seatRepository.findByIdIn(paymentRequest.getSelectedSeats());
 
-        // Validate: all requested seats should exist
         if (seats.size() != paymentRequest.getSelectedSeats().size()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Some seats do not exist.");
         }
 
-        // Check if any seat is already booked
         boolean anySeatBooked = seats.stream().anyMatch(Seat::getIsBooked);
         if (anySeatBooked) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "One or more selected seats are already booked.");
         }
 
-        // Save payment
         Payment payment = new Payment(
             "TXN" + System.currentTimeMillis(),
             paymentRequest.getUserEmail(),
@@ -59,11 +55,9 @@ public class PaymentService {
         );
         paymentRepository.save(payment);
 
-        // Mark seats as booked
         seats.forEach(seat -> seat.setIsBooked(true));
         seatRepository.saveAll(seats);
 
-        // Response
         response.put("status", "success");
         response.put("message", "Payment successful! Seats booked.");
         response.put("transactionId", payment.getTransactionId());
