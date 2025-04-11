@@ -18,7 +18,6 @@ public class Theater {
     @Column(nullable = false)
     private String imageUrl;
 
-    // Getters and Setters
 
     public Long getId() {
         return id;
