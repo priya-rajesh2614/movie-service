@@ -1,5 +1,12 @@
 package com.movieservice.entity;
 
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,9 +16,14 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="users")
-public class User {
+public class User implements UserDetails{
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column( nullable = false, unique = true) 
     private Long id;
@@ -24,6 +36,9 @@ public class User {
 
     @Column(name = "password", nullable = false) 
     private String password;
+    
+    @Column(name="is_admin")
+    private Boolean isAdmin;
 
 	public Long getId() {
 		return id;
@@ -55,6 +70,25 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		 String role = isAdmin ? "ROLE_ADMIN" : "ROLE_USER";
+		    return Collections.singletonList(new SimpleGrantedAuthority(role));
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
 	}
 
 }
