@@ -1,9 +1,13 @@
 package com.movieservice.controller;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import com.movieservice.dto.LoginRequestDto;
 import com.movieservice.dto.UserRegistrationDTO;
+import com.movieservice.entity.User;
 import com.movieservice.service.UserService;
 
 @RestController
@@ -31,5 +35,14 @@ public class UserController {
     public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO userRegistrationDTO) {
         String response = userService.registerUser(userRegistrationDTO);
         return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping("/me")
+    public Map<String, Object> getUserDetails(@AuthenticationPrincipal User user) {
+        return Map.of(
+            "email", user.getEmail(),
+            "isAdmin", user.getIsAdmin(),
+            "username",user.getName()
+        );
     }
 }
