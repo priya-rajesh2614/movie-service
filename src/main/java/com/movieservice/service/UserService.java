@@ -49,7 +49,7 @@ public class UserService {
         newUser.setEmail(userRegistrationDTO.getEmail());
         newUser.setPassword(encryptedPassword);
         newUser.setName(userRegistrationDTO.getName());
-
+        newUser.setIsAdmin(false);
         userRepository.save(newUser);
 
         return "User registered successfully";
