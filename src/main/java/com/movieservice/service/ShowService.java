@@ -1,5 +1,6 @@
 package com.movieservice.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,8 @@ public class ShowService {
     }
 
     public List<Show> getShows(Long movieId, Long theaterId) {
-        return showRepository.findByMovieIdAndTheaterId(movieId, theaterId);
+        LocalDateTime now = LocalDateTime.now();
+        return showRepository.findByMovieIdAndTheaterIdAndShowTimeAfter(movieId, theaterId, now);
     }
 
     public Show addShow(Long movieId, Long theaterId, Show show) {
